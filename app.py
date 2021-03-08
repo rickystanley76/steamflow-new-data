@@ -39,29 +39,17 @@ def explore_data(dataset):
 def user_input_features():
    
         a = st.sidebar.slider('a', 131.0,223.0,175.0,0.2)
-        b = st.sidebar.slider('b', 2148.0,3700.0,2888.0,0.5)
         c = st.sidebar.slider('c', 26.0,531.0,330.0,0.2)    
-        d = st.sidebar.slider('d', 26.0,531.0,330.0,0.2)                
-        e = st.sidebar.slider('e', 26.0,531.0,330.0,0.2)                      
-        f = st.sidebar.slider('f', 143.0,295.0,237.0,0.2)
         g = st.sidebar.slider('g', 143.0,287.0,237.0,0.2)       
-        h = st.sidebar.slider('h', 143.0,290.0,237.0,0.2)
-        i = st.sidebar.slider('i', 2.0,100.0,75.0,0.2)
         j = st.sidebar.slider('j', 0.0,14.0,10.0,0.2)
         k = st.sidebar.slider('k', 115.0,205.0,160.0,0.2)
    
        
        
         
-        data = {'a': a,             
-                'b': b,           
+        data = {'a': a,                       
                 'c': c,
-                'd': d,
-                'e': e,             
-                'f': f,
                 'g': g,
-                'h': h,            
-                'i': i,
                 'j': j,
                 'k': k           
                }
@@ -101,7 +89,7 @@ if st.checkbox("Show Summary of Dataset"):
 showlinechart= st.checkbox('Show line chart for SteamFlow')   
     
 if showlinechart:
-    st.line_chart(data['steamflow'])
+    st.line_chart(data['Y'])
 
 
 
@@ -151,12 +139,12 @@ load_xgb_model = pickle.load(open('papermil_xgb.pkl', 'rb'))
 # Apply XGB model to make predictions
 prediction_xgb = load_xgb_model.predict(input_df)
 
-# # Reads in saved Random Forest  model
-# load_RF_model = pickle.load(open('papermil_rf.pkl', 'rb'))
+# Reads in saved Random Forest  model
+load_RF_model = pickle.load(open('papermil_rf.pkl', 'rb'))
 
 
-# # Apply RF model to make predictions
-# prediction_RF = load_RF_model.predict(input_df)
+# Apply RF model to make predictions
+prediction_RF = load_RF_model.predict(input_df)
 
 # # Reads in saved Decsion Tree  model
 # load_DT_model = pickle.load(open('papermil_dt.pkl', 'rb'))
@@ -167,12 +155,12 @@ prediction_xgb = load_xgb_model.predict(input_df)
 
 ## Result displaying in Table
 resultframe = { #'Linear_Regression': [prediction_linear],
-                'XGBoost':  [prediction_xgb]
-                #'Random_Forest': [prediction_RF],
+                'XGBoost':  [prediction_xgb],
+                'Random_Forest': [prediction_RF]
                 #'Decision_tree': [prediction_DT]
         }
 
-df_res = pd.DataFrame (resultframe, columns = ['XGBoost'])
+df_res = pd.DataFrame (resultframe, columns = ['XGBoost','Random_Forest'])
 
 st.write("""
          # Below is the Result :(Tons/hour)""")
@@ -182,7 +170,7 @@ st.write(df_res)
 #Model Explainability--
 
 st.write("""
-         # Model Explainability- Random Forest """)
+         # Model Explainability- XGBoost """)
 
 st.subheader("""
 # Why it is important?""")
@@ -216,7 +204,7 @@ st.pyplot(bbox_inches='tight')
 
 
 
-st.subheader("Model-Built with Random Forest, Deployed with Streamlit")
+st.subheader("Model-Built with XGBoost, Deployed with Streamlit")
 st.text("by: Ricky D'Cruze")
 st.write("Source code, Data, pickle file,notebook in Github [link](https://github.com/rickystanley76/BTH-ML-with-streaming-data)")   
 
