@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import pickle
 import os
-import numpy as np
+# import numpy as np
 import shap
-import xgboost
+# import xgboost
 import matplotlib.pyplot as plt
 import time
 
@@ -26,15 +26,15 @@ from PIL import Image
 image = Image.open('papermil1000.jpg')
 st.image(image, caption='Paper mill- Paper production (Own image)', width=400)
 
-# EDA
-st.subheader('Exploratory Data Analysis')
-my_dataset = "papermil_data_new.csv"
+# # EDA
+# # st.subheader('Exploratory Data Analysis')
+# my_dataset = "papermil_data_new.csv"
 
 # To Improve speed and cache data
-@st.cache(persist=True)
-def explore_data(dataset):
-	df = pd.read_csv(os.path.join(dataset))
-	return df 
+# @st.cache(persist=True)
+# def explore_data(dataset):
+# 	df = pd.read_csv(os.path.join(dataset))
+# 	return df 
 
 def user_input_features():
    
@@ -58,38 +58,38 @@ def user_input_features():
    
 
 
-# Show Entire Dataframe
-if st.checkbox("Show Dataset used in the Model Building"):
-	data = explore_data(my_dataset)
-	st.dataframe(data)
+# # Show Entire Dataframe
+# if st.checkbox("Show Dataset used in the Model Building"):
+# 	data = explore_data(my_dataset)
+# 	st.dataframe(data)
 
 # Show Description
-if st.checkbox("Show All Column Names"):
-	data = explore_data(my_dataset)
-	st.text("Columns:")
-	st.write(data.columns)
+# if st.checkbox("Show All Column Names"):
+# 	data = explore_data(my_dataset)
+# 	st.text("Columns:")
+# 	st.write(data.columns)
     
-# Dimensions
-data_dim = st.radio('What Dimension Do You Want to Show',('Rows','Columns'))
-if data_dim == 'Rows':
-	data = explore_data(my_dataset)
-	st.text("Showing Length of Rows")
-	st.write(len(data))
-if data_dim == 'Columns':
-	data = explore_data(my_dataset)
-	st.text("Showing Length of Columns")
-	st.write(data.shape[1])
+# # Dimensions
+# data_dim = st.radio('What Dimension Do You Want to Show',('Rows','Columns'))
+# if data_dim == 'Rows':
+# 	data = explore_data(my_dataset)
+# 	st.text("Showing Length of Rows")
+# 	st.write(len(data))
+# if data_dim == 'Columns':
+# 	data = explore_data(my_dataset)
+# 	st.text("Showing Length of Columns")
+# 	st.write(data.shape[1])
 
 
-if st.checkbox("Show Summary of Dataset"):
-	data = explore_data(my_dataset)
-	st.write(data.describe())
+# if st.checkbox("Show Summary of Dataset"):
+# 	data = explore_data(my_dataset)
+# 	st.write(data.describe())
     
 
-showlinechart= st.checkbox('Show line chart for SteamFlow')   
+# showlinechart= st.checkbox('Show line chart for SteamFlow')   
     
-if showlinechart:
-    st.line_chart(data['Y'])
+# if showlinechart:
+#     st.line_chart(data['Y'])
 
 
 
@@ -146,19 +146,13 @@ load_RF_model = pickle.load(open('papermil_rf.pkl', 'rb'))
 # Apply RF model to make predictions
 prediction_RF = load_RF_model.predict(input_df)
 
-# # Reads in saved Decsion Tree  model
-# load_DT_model = pickle.load(open('papermil_dt.pkl', 'rb'))
 
-
-# # Apply RF model to make predictions
-# prediction_DT = load_DT_model.predict(input_df)
 
 ## Result displaying in Table
 resultframe = { #'Linear_Regression': [prediction_linear],
                 'XGBoost':  [prediction_xgb],
                 'Random_Forest': [prediction_RF]
-                #'Decision_tree': [prediction_DT]
-        }
+                       }
 
 df_res = pd.DataFrame (resultframe, columns = ['XGBoost','Random_Forest'])
 
