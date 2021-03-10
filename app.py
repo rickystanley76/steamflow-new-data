@@ -200,6 +200,6 @@ st.pyplot(bbox_inches='tight')
 
 st.subheader("Model-Built with XGBoost, Deployed with Streamlit")
 st.text("by: Ricky D'Cruze")
-st.write("Source code, Data, pickle file,notebook in Github [link](https://github.com/rickystanley76/BTH-ML-with-streaming-data)")   
+st.write("Source code, Data, pickle file,notebook in Github [link](https://github.com/rickystanley76/steamflow-new-data)")   
 
 
