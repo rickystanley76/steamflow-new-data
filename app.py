@@ -38,19 +38,20 @@ st.image(image, caption='Paper mill- Paper production (Own image)', width=400)
 
 def user_input_features():
    
-        a = st.sidebar.slider('a', 131.0,223.0,175.0,0.2)
+       
+        b = st.sidebar.slider('b', 2148.0,3700.0,2888.0,0.5)
         c = st.sidebar.slider('c', 26.0,531.0,330.0,0.2)    
-        g = st.sidebar.slider('g', 143.0,287.0,237.0,0.2)       
-        j = st.sidebar.slider('j', 0.0,14.0,10.0,0.2)
+        d = st.sidebar.slider('d', 26.0,531.0,330.0,0.2)                                         
+        f = st.sidebar.slider('f', 143.0,295.0,237.0,0.2)
         k = st.sidebar.slider('k', 115.0,205.0,160.0,0.2)
    
        
        
         
-        data = {'a': a,                       
+        data = {'b': b,                       
                 'c': c,
-                'g': g,
-                'j': j,
+                'd': d,
+                'f': f,
                 'k': k           
                }
         features = pd.DataFrame(data, index=[0])
@@ -105,7 +106,7 @@ During the production of a paper roll in the paper mill, it takes around **17-20
 There are 403 parameters nobs are all around the paper machine, which measures different parameters during the production. Among them, 11 are
 more important that has good effect on the water uses(SteamFlow) parameter.
 
-With this app production manager can check how much water will be used to produce a paper roll and set the parameters to those 12 nobs.
+With this app production manager can check how much water will be used to produce a paper roll and set the parameters to those 5 nobs.
 
 #  Tools used:
 
@@ -118,7 +119,7 @@ Used Streamlit Library.
 
 """)
 
-st.sidebar.header('User Input Features- 11 parameters: Change the parameters and see the result in the right side')
+st.sidebar.header('User Input Features- 5 parameters: Change the parameters and see the result in the right side')
 
 
 input_df = user_input_features()
